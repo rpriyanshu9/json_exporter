@@ -1,0 +1,48 @@
+---
+modules:
+  default:
+    metrics:
+    - help: Head min time
+      name: prometheus_status_tsdb_head_min_time_milliseconds
+      path: '{ .data.headStats.minTime }'
+    - help: Head max time
+      name: prometheus_status_tsdb_head_max_time_milliseconds
+      path: '{ .data.headStats.maxTime }'
+    - help: Head series count
+      name: prometheus_status_tsdb_head_series
+      path: '{ .data.headStats.numSeries }'
+    - help: Head chunks count
+      name: prometheus_status_tsdb_head_chunks
+      path: '{ .data.headStats.chunkCount }'
+    - help: Series count by metric
+      labels:
+        metric: '{ .name }'
+      name: prometheus_status_tsdb_metric
+      path: '{ .data.seriesCountByMetricName[*] }'
+      type: object
+      values:
+        series: '{ .value }'
+    - help: Series count by label value pair
+      labels:
+        pair: '{ .name }'
+      name: prometheus_status_tsdb_label_value_pair
+      path: '{ .data.seriesCountByLabelPair[*] }'
+      type: object
+      values:
+        series: '{ .value }'
+    - help: Label values count by label name
+      labels:
+        pair: '{ .name }'
+      name: prometheus_status_tsdb_metric_name
+      path: '{ .data.labelValueCountByLabelName[*] }'
+      type: object
+      values:
+        values: '{ .value }'
+    - help: Label values size in memory in bytes
+      labels:
+        label: '{ .name }'
+      name: prometheus_status_tsdb_label_values_in_memory_size
+      path: '{ .data.memoryInBytesByLabelName[*] }'
+      type: object
+      values:
+        bytes: '{ .value }'
